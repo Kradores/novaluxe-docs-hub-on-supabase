@@ -64,10 +64,7 @@ async function claimJob(): Promise<ZipJob | null> {
     return null;
   }
 
-  console.log(data);
-
   if (!data?.id) {
-    console.log("No job available to claim.");
     return null;
   }
 
