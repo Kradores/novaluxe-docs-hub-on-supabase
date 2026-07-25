@@ -82,8 +82,8 @@ services:
       studio:
         condition: service_healthy
     ports:
-      - ${KONG_HTTP_PORT}:8000/tcp
-      - ${KONG_HTTPS_PORT}:8443/tcp
+      - 127.0.0.1:${KONG_HTTP_PORT}:8000/tcp
+      - 127.0.0.1:${KONG_HTTPS_PORT}:8443/tcp
     volumes:
       - ./volumes/api/kong.yml:/home/kong/temp.yml:ro,z
       - ./volumes/api/kong-entrypoint.sh:/home/kong/kong-entrypoint.sh:ro,z
@@ -545,8 +545,8 @@ services:
     image: supabase/supavisor:2.9.5
     restart: unless-stopped
     ports:
-      - ${POSTGRES_PORT}:5432
-      - ${POOLER_PROXY_PORT_TRANSACTION}:6543
+      - 127.0.0.1:${POSTGRES_PORT}:5432
+      - 127.0.0.1:${POOLER_PROXY_PORT_TRANSACTION}:6543
     volumes:
       - ./volumes/pooler/pooler.exs:/etc/pooler/pooler.exs:ro,z
     healthcheck:
@@ -639,7 +639,7 @@ services:
       - ./volumes/novaluxe-docs-hub/.env
 
     environment:
-      - NEXT_PUBLIC_URL=${PUBLIC_URL}
+      - NEXT_PUBLIC_URL=${SITE_URL}
       - NEXT_PUBLIC_SUPABASE_URL=${SUPABASE_PUBLIC_URL}
       - SUPABASE_URL=http://kong:8000
       - NEXT_PUBLIC_SUPABASE_ANON_KEY=${ANON_KEY}
@@ -648,7 +648,7 @@ services:
       - MAX_SECONDS_FILE_DOWNLOAD=300
 
     ports:
-      - "3000:3000"
+      - "127.0.0.1:3000:3000"
 
     depends_on:
       - kong
