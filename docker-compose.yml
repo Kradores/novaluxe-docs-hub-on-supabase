@@ -620,14 +620,13 @@ services:
     build:
       context: ./volumes/novaluxe-docs-hub
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_URL: ${SITE_URL}
+        NEXT_PUBLIC_SUPABASE_URL: ${SUPABASE_PUBLIC_URL}
+        NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
+        NEXT_PUBLIC_GMAIL_OAUTH_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     container_name: docs-hub
     restart: unless-stopped
-
-    args:
-      NEXT_PUBLIC_URL: ${SITE_URL}
-      NEXT_PUBLIC_SUPABASE_URL: ${SUPABASE_PUBLIC_URL}
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${ANON_KEY}
-      NEXT_PUBLIC_GMAIL_OAUTH_CLIENT_ID: ${GOOGLE_CLIENT_ID}
 
     env_file:
       - ./volumes/novaluxe-docs-hub/.env
