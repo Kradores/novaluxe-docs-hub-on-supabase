@@ -598,6 +598,12 @@ services:
       context: ./volumes/zip-worker
     restart: unless-stopped
 
+    volumes:
+      - ./volumes/zip-worker:/app
+      - zip_worker_node_modules:/app/node_modules
+
+    command: npm run dev
+
     depends_on:
       db:
         condition: service_healthy
@@ -622,6 +628,11 @@ services:
       dockerfile: Dockerfile
     container_name: docs-hub
     restart: unless-stopped
+    volumes:
+      - ./volumes/novaluxe-docs-hub:/app
+      - docs_hub_node_modules:/app/node_modules
+
+    command: sh -c "npm install && npm run dev"
 
     env_file:
       - ./volumes/novaluxe-docs-hub/.env
