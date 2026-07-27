@@ -627,6 +627,13 @@ services:
         NEXT_PUBLIC_GMAIL_OAUTH_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     container_name: docs-hub
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+    stop_grace_period: 30s
 
     env_file:
       - ./volumes/novaluxe-docs-hub/.env
