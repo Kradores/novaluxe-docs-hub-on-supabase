@@ -5,3 +5,4 @@ test.http
 docker-compose.override.yml
 node_modules
 repomix-output.xml
+run.sh
